@@ -1,0 +1,110 @@
+<div id="app">
+  <mat-toolbar color="primary" mode="fixed">
+    <span>Pixea</span>
+
+    <span class="flex-spacer"></span>
+
+    <button mat-button [mat-menu-trigger-for]="menu">
+      Meno Priezvisko
+    </button>
+  </mat-toolbar>
+
+  <mat-menu x-position="before" #menu="matMenu">
+    <button mat-menu-item>Profile</button>
+    <button mat-menu-item>Settings</button>
+    <button mat-menu-item>Logout</button>
+  </mat-menu>
+
+  <mat-sidenav-container>
+    <mat-sidenav
+      mode="side"
+      fixedInViewport="true"
+      fixedTopGap="64"
+      opened="true"
+    >
+      <mat-nav-list>
+        <a mat-list-item active="true">
+          <mat-icon mat-list-icon>photo_library</mat-icon>
+          <span mat-line>Photos</span>
+          <span mat-line class="secondary">Your photos</span>
+        </a>
+        <a mat-list-item active="true">
+          <mat-icon mat-list-icon>shopping_basket</mat-icon>
+          <span mat-line>Orders</span>
+          <span mat-line class="secondary">Your orders</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+      Main<br>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
