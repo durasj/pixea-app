@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { environment } from '../environments/environment';
 
@@ -33,7 +33,7 @@ import { PhotosService } from './photos.service';
     LayoutModule,
 
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
+    AngularFirestoreModule.enablePersistence(),
 
     MatButtonModule,
     MatCheckboxModule,
