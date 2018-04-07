@@ -8,8 +8,8 @@ cache:
     - node_modules
 
 before_script:
-   - yarn -g install firebase-tools
-   - yarn -g install @angular/cli
+   - yarn global add firebase-tools
+   - yarn global add @angular/cli
 
 script:
    - ng build --prod --aot
