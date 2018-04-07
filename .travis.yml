@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+- lts/*
+
+cache:
+  yarn: true
+  directories:
+  - node_modules
+
+before_install:
+- yarn global add greenkeeper-lockfile@1
+- yarn global add firebase-tools
+- yarn global add @angular/cli
+
+before_script:
+- greenkeeper-lockfile-update
+
+after_script:
+- greenkeeper-lockfile-upload
+
+script:
+- ng build --prod --aot
+
+env:
+  global:
+    secure: xfUn3qJ3uChAoFm+12vBtBXooVXDuTbHaZ+QMl2vvCimrYvj4fPf5e3Q5MOCTQqFjue/iC8ni7oOqMNjmCF9AK+w8zrEwbmj1YffAZdzO1alDar7HCcglUMrSlPEGYnxPu1Gp6WbyVts9TfIO9kX2t/Nx40ilQvYPNTYqeKpUwxzRnzk//8UImlKwIAx89IXA9HSwvNHtCXyfZX8Nfez/bYb2njtAj2LjyTryKIC/cwyE2/RJQ2xmZgQwbTukoqZJ3nN9ycxewryhVyTzbHY9db8bt5Ay2jeMhGePK2xsmq3EEqpDQvZ/28JsSjS+7TXAgdHKfW5JNOJdnC4arVixGVHSfq4rccgyaREOKRlW4XVaWtCBo4+jqVjWxu185Y/8kQ0sa86W9md7yI5+v2oO6Wp++N7x47sVz5/DS8o88TPm0ZImqb0oGUxKigfdTJTf7HDh9dK9w/V8j/DrxjQYV2XCJ5KmyATuX9uFReUUYMQ9j4cvknil6pSU05KgiJUN4SNssw6gY7gam3ibYAFXm0LAKatJdb9FCgqPggaacXwjPhdhoQUXAFCbWz/gfFZtloqsyau7y5yu+KGaRpipksoLrr2QuYfbb+EXUnSA9aL2BcHpgmKgqPexGCEKAH2l/Emte3NQsP7ztfIjsvHjFrKnI/ewgBK1PSjxaMCQTU=

@@ -1,5 +1,13 @@
 <div id="app">
   <mat-toolbar color="primary" mode="fixed">
+    <button
+      mat-icon-button
+      *ngIf="isSmallScreen"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon>view_list</mat-icon>
+    </button>
+
     <span>Pixea</span>
 
     <span class="flex-spacer"></span>
@@ -17,10 +25,11 @@
 
   <mat-sidenav-container>
     <mat-sidenav
-      mode="side"
+      [mode]="sidenavMode"
+      [opened]="!isSmallScreen"
       fixedInViewport="true"
       fixedTopGap="64"
-      opened="true"
+      #sidenav
     >
       <mat-nav-list>
         <a mat-list-item active="true">

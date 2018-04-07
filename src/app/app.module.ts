@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -29,6 +30,7 @@ import { PhotosService } from './photos.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    LayoutModule,
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
