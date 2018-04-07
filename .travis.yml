@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+   - “8”
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+before_script:
+   - yarn -g install firebase-tools
+   - yarn -g install @angular/cli
+
+script:
+   - ng build --prod --aot

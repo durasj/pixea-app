@@ -1,6 +1,8 @@
+import { pluck } from 'rxjs/operators';
 import { Component } from '@angular/core';
 
 import { PhotosService } from './photos.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +10,21 @@ import { PhotosService } from './photos.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private photos: PhotosService) {}
+  public isSmallScreen: boolean;
+
+  constructor(
+    private photos: PhotosService,
+    private breakpointObserver: BreakpointObserver
+  ) {}
+
+  ngOnInit() {
+    this.breakpointObserver
+      .observe(['(max-width: 901px)'])
+      .pipe(pluck('matches'))
+      .subscribe((m: boolean) => this.isSmallScreen = m);
+  }
+
+  get sidenavMode() {
+    return this.isSmallScreen ? 'over' : 'side';
+  }
 }

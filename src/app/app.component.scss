@@ -24,3 +24,12 @@
         padding: 32px;
     }
 }
+
+@media (max-width: 600px) {
+    #app {
+        .mat-sidenav-container {
+            margin-top: 56px;
+            flex: 1;
+        }
+    }
+}
