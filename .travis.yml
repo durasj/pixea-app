@@ -1,26 +1,46 @@
 language: node_js
+
 node_js:
-- lts/*
+  - lts/*
 
 cache:
   yarn: true
   directories:
-  - node_modules
+    - node_modules
 
 before_install:
-- yarn global add greenkeeper-lockfile@1
-- yarn global add firebase-tools
-- yarn global add @angular/cli
+  - yarn global add greenkeeper-lockfile@1
+  - yarn global add firebase-tools
+  - yarn global add @angular/cli
 
 before_script:
-- greenkeeper-lockfile-update
+  - greenkeeper-lockfile-update
 
 after_script:
-- greenkeeper-lockfile-upload
+  - greenkeeper-lockfile-upload
 
 script:
-- ng build --prod --aot
+  - ng build --prod --aot
+
+deploy:
+  provider: firebase
+  token:
+    secure: lwbqT2s3rZX005zAidmslbm4neSQDDJWGAG6iRlawTbEeeA/LIlmEalMFu4XfZbvJh+pPNF05hxISTOauJDEeLsMUvZJx8f9Q9TYK0+UJ/Ca3FKF+gOOoA3knV/nwNVFKbGeUsR5uaNq9XqS5aJyOUXajUpbNkwUcnkmDKClD7CxKC5Xp8qVgAPlwZBzb9X7H90ooCUGEpiHfv4H4DZpxkSL5m/UvTzeVUNdfqilLCrxh4gXta2vaR26MJHqBtvG0L7MqinGr23YbG6EpyjnXtEJCxXqeSzFnNPc+GtyD5z4ZLFvopSr233qzbtoY9SCI1GtBEynRrZKUvK+qP9eQgiKobryQ6x97DsV6QMwPs5tsGJllexqZRFhy9lHk7fArHMOmNjXcSLxB2N0fjDpFdRWuZXWXa1G8Jpa8/KpLp2kIF+RVldxRKWFQbv44gAky37QBlmCPKDtXcEN4GMxVrP/Phu8A30BzTlIhE3hLPeizEG/EpPrDUnidycj1Zy/jCC7CPjEidpGd0oHLntkUV9JRzCMB2Gb9KBrekNGFGJ3Z0pfKb4UcHkg1JtW/lssTgI7X6Qwse0Nyz+QvdQ5WX/jqw43WpjtlJPShrznYqgRkdlRCSj7Kp9BfTZ70aYQFiq5CLw44XCfsFCIj2Agwkv74C7b0XYBf65kDBRvXek=
+  project: pixea-dev
+  message: "Automated development deployment via Travis CI"
+  on:
+    branch: develop
+
+deploy:
+  provider: firebase
+  token:
+    secure: lwbqT2s3rZX005zAidmslbm4neSQDDJWGAG6iRlawTbEeeA/LIlmEalMFu4XfZbvJh+pPNF05hxISTOauJDEeLsMUvZJx8f9Q9TYK0+UJ/Ca3FKF+gOOoA3knV/nwNVFKbGeUsR5uaNq9XqS5aJyOUXajUpbNkwUcnkmDKClD7CxKC5Xp8qVgAPlwZBzb9X7H90ooCUGEpiHfv4H4DZpxkSL5m/UvTzeVUNdfqilLCrxh4gXta2vaR26MJHqBtvG0L7MqinGr23YbG6EpyjnXtEJCxXqeSzFnNPc+GtyD5z4ZLFvopSr233qzbtoY9SCI1GtBEynRrZKUvK+qP9eQgiKobryQ6x97DsV6QMwPs5tsGJllexqZRFhy9lHk7fArHMOmNjXcSLxB2N0fjDpFdRWuZXWXa1G8Jpa8/KpLp2kIF+RVldxRKWFQbv44gAky37QBlmCPKDtXcEN4GMxVrP/Phu8A30BzTlIhE3hLPeizEG/EpPrDUnidycj1Zy/jCC7CPjEidpGd0oHLntkUV9JRzCMB2Gb9KBrekNGFGJ3Z0pfKb4UcHkg1JtW/lssTgI7X6Qwse0Nyz+QvdQ5WX/jqw43WpjtlJPShrznYqgRkdlRCSj7Kp9BfTZ70aYQFiq5CLw44XCfsFCIj2Agwkv74C7b0XYBf65kDBRvXek=
+  project: pixea-155420
+  message: "Automated production deployment via Travis CI"
+  on:
+    branch: master
 
 env:
   global:
-    secure: xfUn3qJ3uChAoFm+12vBtBXooVXDuTbHaZ+QMl2vvCimrYvj4fPf5e3Q5MOCTQqFjue/iC8ni7oOqMNjmCF9AK+w8zrEwbmj1YffAZdzO1alDar7HCcglUMrSlPEGYnxPu1Gp6WbyVts9TfIO9kX2t/Nx40ilQvYPNTYqeKpUwxzRnzk//8UImlKwIAx89IXA9HSwvNHtCXyfZX8Nfez/bYb2njtAj2LjyTryKIC/cwyE2/RJQ2xmZgQwbTukoqZJ3nN9ycxewryhVyTzbHY9db8bt5Ay2jeMhGePK2xsmq3EEqpDQvZ/28JsSjS+7TXAgdHKfW5JNOJdnC4arVixGVHSfq4rccgyaREOKRlW4XVaWtCBo4+jqVjWxu185Y/8kQ0sa86W9md7yI5+v2oO6Wp++N7x47sVz5/DS8o88TPm0ZImqb0oGUxKigfdTJTf7HDh9dK9w/V8j/DrxjQYV2XCJ5KmyATuX9uFReUUYMQ9j4cvknil6pSU05KgiJUN4SNssw6gY7gam3ibYAFXm0LAKatJdb9FCgqPggaacXwjPhdhoQUXAFCbWz/gfFZtloqsyau7y5yu+KGaRpipksoLrr2QuYfbb+EXUnSA9aL2BcHpgmKgqPexGCEKAH2l/Emte3NQsP7ztfIjsvHjFrKnI/ewgBK1PSjxaMCQTU=
+  - secure: xfUn3qJ3uChAoFm+12vBtBXooVXDuTbHaZ+QMl2vvCimrYvj4fPf5e3Q5MOCTQqFjue/iC8ni7oOqMNjmCF9AK+w8zrEwbmj1YffAZdzO1alDar7HCcglUMrSlPEGYnxPu1Gp6WbyVts9TfIO9kX2t/Nx40ilQvYPNTYqeKpUwxzRnzk//8UImlKwIAx89IXA9HSwvNHtCXyfZX8Nfez/bYb2njtAj2LjyTryKIC/cwyE2/RJQ2xmZgQwbTukoqZJ3nN9ycxewryhVyTzbHY9db8bt5Ay2jeMhGePK2xsmq3EEqpDQvZ/28JsSjS+7TXAgdHKfW5JNOJdnC4arVixGVHSfq4rccgyaREOKRlW4XVaWtCBo4+jqVjWxu185Y/8kQ0sa86W9md7yI5+v2oO6Wp++N7x47sVz5/DS8o88TPm0ZImqb0oGUxKigfdTJTf7HDh9dK9w/V8j/DrxjQYV2XCJ5KmyATuX9uFReUUYMQ9j4cvknil6pSU05KgiJUN4SNssw6gY7gam3ibYAFXm0LAKatJdb9FCgqPggaacXwjPhdhoQUXAFCbWz/gfFZtloqsyau7y5yu+KGaRpipksoLrr2QuYfbb+EXUnSA9aL2BcHpgmKgqPexGCEKAH2l/Emte3NQsP7ztfIjsvHjFrKnI/ewgBK1PSjxaMCQTU=
+  - secure: lwbqT2s3rZX005zAidmslbm4neSQDDJWGAG6iRlawTbEeeA/LIlmEalMFu4XfZbvJh+pPNF05hxISTOauJDEeLsMUvZJx8f9Q9TYK0+UJ/Ca3FKF+gOOoA3knV/nwNVFKbGeUsR5uaNq9XqS5aJyOUXajUpbNkwUcnkmDKClD7CxKC5Xp8qVgAPlwZBzb9X7H90ooCUGEpiHfv4H4DZpxkSL5m/UvTzeVUNdfqilLCrxh4gXta2vaR26MJHqBtvG0L7MqinGr23YbG6EpyjnXtEJCxXqeSzFnNPc+GtyD5z4ZLFvopSr233qzbtoY9SCI1GtBEynRrZKUvK+qP9eQgiKobryQ6x97DsV6QMwPs5tsGJllexqZRFhy9lHk7fArHMOmNjXcSLxB2N0fjDpFdRWuZXWXa1G8Jpa8/KpLp2kIF+RVldxRKWFQbv44gAky37QBlmCPKDtXcEN4GMxVrP/Phu8A30BzTlIhE3hLPeizEG/EpPrDUnidycj1Zy/jCC7CPjEidpGd0oHLntkUV9JRzCMB2Gb9KBrekNGFGJ3Z0pfKb4UcHkg1JtW/lssTgI7X6Qwse0Nyz+QvdQ5WX/jqw43WpjtlJPShrznYqgRkdlRCSj7Kp9BfTZ70aYQFiq5CLw44XCfsFCIj2Agwkv74C7b0XYBf65kDBRvXek=
