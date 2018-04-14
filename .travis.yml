@@ -24,6 +24,9 @@ script:
   - ng lint
   - ng build --prod --aot
 
+before_deploy:
+  - cd functions && yarn && cd ..
+
 deploy:
   provider: firebase
   token:
