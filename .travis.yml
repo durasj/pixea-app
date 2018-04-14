@@ -28,24 +28,22 @@ before_deploy:
   - cd functions && yarn && cd ..
 
 deploy:
-  provider: firebase
-  token:
-    secure: lwbqT2s3rZX005zAidmslbm4neSQDDJWGAG6iRlawTbEeeA/LIlmEalMFu4XfZbvJh+pPNF05hxISTOauJDEeLsMUvZJx8f9Q9TYK0+UJ/Ca3FKF+gOOoA3knV/nwNVFKbGeUsR5uaNq9XqS5aJyOUXajUpbNkwUcnkmDKClD7CxKC5Xp8qVgAPlwZBzb9X7H90ooCUGEpiHfv4H4DZpxkSL5m/UvTzeVUNdfqilLCrxh4gXta2vaR26MJHqBtvG0L7MqinGr23YbG6EpyjnXtEJCxXqeSzFnNPc+GtyD5z4ZLFvopSr233qzbtoY9SCI1GtBEynRrZKUvK+qP9eQgiKobryQ6x97DsV6QMwPs5tsGJllexqZRFhy9lHk7fArHMOmNjXcSLxB2N0fjDpFdRWuZXWXa1G8Jpa8/KpLp2kIF+RVldxRKWFQbv44gAky37QBlmCPKDtXcEN4GMxVrP/Phu8A30BzTlIhE3hLPeizEG/EpPrDUnidycj1Zy/jCC7CPjEidpGd0oHLntkUV9JRzCMB2Gb9KBrekNGFGJ3Z0pfKb4UcHkg1JtW/lssTgI7X6Qwse0Nyz+QvdQ5WX/jqw43WpjtlJPShrznYqgRkdlRCSj7Kp9BfTZ70aYQFiq5CLw44XCfsFCIj2Agwkv74C7b0XYBf65kDBRvXek=
-  project: pixea-dev
-  message: "Automated development deployment via Travis CI"
-  skip_cleanup: true
-  on:
-    branch: develop
-
-deploy:
-  provider: firebase
-  token:
-    secure: lwbqT2s3rZX005zAidmslbm4neSQDDJWGAG6iRlawTbEeeA/LIlmEalMFu4XfZbvJh+pPNF05hxISTOauJDEeLsMUvZJx8f9Q9TYK0+UJ/Ca3FKF+gOOoA3knV/nwNVFKbGeUsR5uaNq9XqS5aJyOUXajUpbNkwUcnkmDKClD7CxKC5Xp8qVgAPlwZBzb9X7H90ooCUGEpiHfv4H4DZpxkSL5m/UvTzeVUNdfqilLCrxh4gXta2vaR26MJHqBtvG0L7MqinGr23YbG6EpyjnXtEJCxXqeSzFnNPc+GtyD5z4ZLFvopSr233qzbtoY9SCI1GtBEynRrZKUvK+qP9eQgiKobryQ6x97DsV6QMwPs5tsGJllexqZRFhy9lHk7fArHMOmNjXcSLxB2N0fjDpFdRWuZXWXa1G8Jpa8/KpLp2kIF+RVldxRKWFQbv44gAky37QBlmCPKDtXcEN4GMxVrP/Phu8A30BzTlIhE3hLPeizEG/EpPrDUnidycj1Zy/jCC7CPjEidpGd0oHLntkUV9JRzCMB2Gb9KBrekNGFGJ3Z0pfKb4UcHkg1JtW/lssTgI7X6Qwse0Nyz+QvdQ5WX/jqw43WpjtlJPShrznYqgRkdlRCSj7Kp9BfTZ70aYQFiq5CLw44XCfsFCIj2Agwkv74C7b0XYBf65kDBRvXek=
-  project: pixea-155420
-  message: "Automated production deployment via Travis CI"
-  skip_cleanup: true
-  on:
-    branch: master
+  - provider: firebase
+    token:
+      secure: lwbqT2s3rZX005zAidmslbm4neSQDDJWGAG6iRlawTbEeeA/LIlmEalMFu4XfZbvJh+pPNF05hxISTOauJDEeLsMUvZJx8f9Q9TYK0+UJ/Ca3FKF+gOOoA3knV/nwNVFKbGeUsR5uaNq9XqS5aJyOUXajUpbNkwUcnkmDKClD7CxKC5Xp8qVgAPlwZBzb9X7H90ooCUGEpiHfv4H4DZpxkSL5m/UvTzeVUNdfqilLCrxh4gXta2vaR26MJHqBtvG0L7MqinGr23YbG6EpyjnXtEJCxXqeSzFnNPc+GtyD5z4ZLFvopSr233qzbtoY9SCI1GtBEynRrZKUvK+qP9eQgiKobryQ6x97DsV6QMwPs5tsGJllexqZRFhy9lHk7fArHMOmNjXcSLxB2N0fjDpFdRWuZXWXa1G8Jpa8/KpLp2kIF+RVldxRKWFQbv44gAky37QBlmCPKDtXcEN4GMxVrP/Phu8A30BzTlIhE3hLPeizEG/EpPrDUnidycj1Zy/jCC7CPjEidpGd0oHLntkUV9JRzCMB2Gb9KBrekNGFGJ3Z0pfKb4UcHkg1JtW/lssTgI7X6Qwse0Nyz+QvdQ5WX/jqw43WpjtlJPShrznYqgRkdlRCSj7Kp9BfTZ70aYQFiq5CLw44XCfsFCIj2Agwkv74C7b0XYBf65kDBRvXek=
+    project: pixea-dev
+    message: "Automated development deployment via Travis CI"
+    skip_cleanup: true
+    on:
+      branch: develop
+  - provider: firebase
+    token:
+      secure: lwbqT2s3rZX005zAidmslbm4neSQDDJWGAG6iRlawTbEeeA/LIlmEalMFu4XfZbvJh+pPNF05hxISTOauJDEeLsMUvZJx8f9Q9TYK0+UJ/Ca3FKF+gOOoA3knV/nwNVFKbGeUsR5uaNq9XqS5aJyOUXajUpbNkwUcnkmDKClD7CxKC5Xp8qVgAPlwZBzb9X7H90ooCUGEpiHfv4H4DZpxkSL5m/UvTzeVUNdfqilLCrxh4gXta2vaR26MJHqBtvG0L7MqinGr23YbG6EpyjnXtEJCxXqeSzFnNPc+GtyD5z4ZLFvopSr233qzbtoY9SCI1GtBEynRrZKUvK+qP9eQgiKobryQ6x97DsV6QMwPs5tsGJllexqZRFhy9lHk7fArHMOmNjXcSLxB2N0fjDpFdRWuZXWXa1G8Jpa8/KpLp2kIF+RVldxRKWFQbv44gAky37QBlmCPKDtXcEN4GMxVrP/Phu8A30BzTlIhE3hLPeizEG/EpPrDUnidycj1Zy/jCC7CPjEidpGd0oHLntkUV9JRzCMB2Gb9KBrekNGFGJ3Z0pfKb4UcHkg1JtW/lssTgI7X6Qwse0Nyz+QvdQ5WX/jqw43WpjtlJPShrznYqgRkdlRCSj7Kp9BfTZ70aYQFiq5CLw44XCfsFCIj2Agwkv74C7b0XYBf65kDBRvXek=
+    project: pixea-155420
+    message: "Automated production deployment via Travis CI"
+    skip_cleanup: true
+    on:
+      branch: master
 
 env:
   global:
