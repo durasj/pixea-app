@@ -23,10 +23,8 @@ after_script:
 script:
   - ng lint
   - ng build --prod --aot
-
-before_deploy:
   - cd functions && yarn && cd ..
-  - firebase deploy --token $FIREBASE_TOKEN --non-interactive -P development --debug
+  - firebase deploy --token "$FIREBASE_TOKEN" --non-interactive -P development --debug
 
 deploy:
   - provider: firebase
