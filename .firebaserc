@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "pixea-dev"
+    "default": "pixea-dev",
+    "development": "pixea-dev",
+    "production": "pixea-155420"
   }
 }
