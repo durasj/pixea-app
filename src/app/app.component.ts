@@ -1,5 +1,5 @@
 import { pluck } from 'rxjs/operators';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { PhotosService } from './photos.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -9,7 +9,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public isSmallScreen: boolean;
 
   constructor(
