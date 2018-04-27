@@ -46,7 +46,10 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      Main
+      <ngx-auth-firebaseui 
+        (onSuccess)="printUser($event)"
+        (onError)="printError($event)">
+      </ngx-auth-firebaseui>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

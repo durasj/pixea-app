@@ -24,6 +24,14 @@ export class AppComponent implements OnInit {
       .subscribe((m: boolean) => this.isSmallScreen = m);
   }
 
+  printUser(event) {
+    console.log(event);
+  }
+
+  printError(event) {
+   console.error(event);
+  }
+
   get sidenavMode() {
     return this.isSmallScreen ? 'over' : 'side';
   }

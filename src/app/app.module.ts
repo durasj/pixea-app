@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
-
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
@@ -34,6 +34,8 @@ import { PhotosService } from './photos.service';
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
+
+    NgxAuthFirebaseUIModule.forRoot(environment.firebase),
 
     MatButtonModule,
     MatCheckboxModule,
