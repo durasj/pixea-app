@@ -1,0 +1,32 @@
+:host {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+
+    > * {
+        min-width: 320px;
+        max-width: 450px;
+    }
+
+    button.google {
+        background-color: #db4437;
+        color: #ffffff;
+    }
+
+    button.facebook {
+        background-color: #3b5998;
+        color: #ffffff;
+    }
+
+    button.twitter {
+        background-color: #55acee;
+        color: #ffffff;
+    }
+
+    form {
+        mat-form-field {
+            width: 100%;
+        }
+    }
+}

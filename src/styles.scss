@@ -20,19 +20,19 @@ body {
  // Be sure that you only ever include this mixin once!
  @include mat-core();
 
- $candy-app-primary: mat-palette($mat-blue);
- $candy-app-accent:  mat-palette($mat-amber);
+ $pixea-app-primary: mat-palette($mat-blue);
+ $pixea-app-accent:  mat-palette($mat-amber);
 
  // The warn palette is optional (defaults to red).
- $candy-app-warn:    mat-palette($mat-red);
+ $pixea-app-warn:    mat-palette($mat-red);
  
  // Create the theme object (a Sass map containing all of the palettes).
- $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+ $pixea-app-theme: mat-light-theme($pixea-app-primary, $pixea-app-accent, $pixea-app-warn);
  
  // Include theme styles for core and each component used in your app.
  // Alternatively, you can import and @include the theme mixins for each component
  // that you are using.
- @include angular-material-theme($candy-app-theme);
+ @include angular-material-theme($pixea-app-theme);
 
 /**
  * /Angular Material

@@ -131,12 +131,6 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/flex-layout@^5.0.0-beta.14":
-  version "5.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-5.0.0-beta.14.tgz#300e1cba2ef1a70f43fe7ea68ea78267cb4241e4"
-  dependencies:
-    tslib "^1.7.1"
-
 "@angular/forms@^5.2.0":
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-5.2.2.tgz#eca24f15d96de285cd0726601db4bffec39c01f3"
@@ -171,9 +165,9 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/router@^5.2.0":
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-5.2.2.tgz#b0ffd7121290e8c01f20862b4a2638ebcebc61cf"
+"@angular/router@^5.2.10":
+  version "5.2.10"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-5.2.10.tgz#cb36c32de0a233a9b49789e11ca0f96c5304f25a"
   dependencies:
     tslib "^1.7.1"
 
@@ -4478,16 +4472,6 @@ neo-async@^2.5.0:
 netmask@~1.0.4:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
-
-ngx-auth-firebaseui@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/ngx-auth-firebaseui/-/ngx-auth-firebaseui-0.6.1.tgz#e0ab4bc2c7fffe3ca77f3ecc98fbd3022d118afb"
-  dependencies:
-    ngx-material-password-strength "^1.0.5"
-
-ngx-material-password-strength@^1.0.5:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/ngx-material-password-strength/-/ngx-material-password-strength-1.0.6.tgz#8c5128d25a0e36ee418a7348f7ab9cea909d6852"
 
 no-case@^2.2.0:
   version "2.3.2"

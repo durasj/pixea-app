@@ -1,0 +1,115 @@
+<mat-grid-list cols="1" rowHeight="50px" *ngIf="!emailLoginActivated && !newAccount && !existingAccountProvider">
+  <mat-grid-tile>
+    <button mat-raised-button (click)="emailLoginActivated = true">Sign in with email</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="google" (click)="signWithGoogle()">Sign in with Google</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="facebook" (click)="signWithFacebook()">Sign in with Facebook</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button class="twitter" (click)="signWithTwitter()">Sign in with Twitter</button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-card *ngIf="emailLoginActivated">
+  <mat-card-title>
+    Sign in with email
+  </mat-card-title>
+
+  <mat-card-content>
+    <form role="form" id="email" (submit)="signWithEmail()">
+      <mat-form-field>
+        <input matInput placeholder="E-mail" type="email" [formControl]="emailFormControl" required>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid e-mail address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          E-mail is required
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-button (click)="emailLoginActivated = false">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" form="email">NEXT</button>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card *ngIf="newAccount">
+  <mat-card-title>
+    Create account
+  </mat-card-title>
+
+  <mat-card-content>
+    <form role="form" id="create" (submit)="signWithEmail()">
+      <mat-grid-list cols="2" rowHeight="64px">
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="First name" type="text" [formControl]="firstNameFormControl" required>
+            <mat-error *ngIf="firstNameFormControl.hasError('required')">
+              First name is required
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Last name" type="text" [formControl]="lastNameFormControl" required>
+            <mat-error *ngIf="lastNameFormControl.hasError('required')">
+              Last name is required
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+      <mat-grid-list cols="2" rowHeight="64px">
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Choose password" [type]="hide ? 'password' : 'text'" minlength="8" [formControl]="passwordFormControl" required>
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+              The password must be at least 8 characters long.
+            </mat-error>
+            <mat-error *ngIf="passwordFormControl.hasError('required')">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <input matInput placeholder="Repeat password" type="password" minlength="8" [formControl]="passwordRepeatFormControl" required>
+            <mat-error *ngIf="passwordRepeatFormControl.hasError('minlength')">
+              The password must be at least 8 characters long.
+            </mat-error>
+            <mat-error *ngIf="passwordRepeatFormControl.hasError('required')">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-button (click)="newAccount = false; emailLoginActivated = true;">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" form="create">NEXT</button>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card *ngIf="existingAccountProvider">
+  <mat-card-title>
+    You already have an account
+  </mat-card-title>
+
+  <mat-card-content>
+    You've already used {{ emailFormControl.value }}. Sign in with {{ existingAccountProvider }} to continue.
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-button (click)="newAccount = false; emailLoginActivated = true;">Cancel</button>
+    <button mat-raised-button color="primary" (click)="signWithExisting()">Sign in with {{ existingAccountProvider }}</button>
+  </mat-card-actions>
+</mat-card>
