@@ -1,0 +1,9 @@
+<app-dash>
+  <ul>
+    <li *ngFor="let photo of photos$ | async">
+      Id: <a routerLink="/photo/{{photo.id}}">{{ photo.id }}</a>,
+      Name: {{ photo.name }},
+      Author: {{ photo.userId }}
+    </li>
+  </ul>  
+</app-dash>
