@@ -1,10 +1,31 @@
 import { TestBed, async } from '@angular/core/testing';
+import {
+  MatIconModule,
+  MatMenuModule,
+  MatToolbarModule,
+  MatSidenavModule,
+  MatButtonModule,
+  MatCheckboxModule,
+  MatCardModule,
+  MatListModule,
+} from '@angular/material';
 import { AppComponent } from './app.component';
+
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent
+      ],
+      imports: [
+        MatIconModule,
+        MatMenuModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatListModule
       ],
     }).compileComponents();
   }));
