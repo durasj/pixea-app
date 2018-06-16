@@ -16,6 +16,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatSnackBarModule,
+  MatProgressBarModule,
 } from '@angular/material';
 
 import { environment } from '../../environments/environment';
@@ -44,6 +45,7 @@ import { DashComponent } from './dash/dash.component';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
+    MatProgressBarModule,
   ],
   declarations: [
     DashComponent,
