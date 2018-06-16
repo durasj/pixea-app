@@ -1,0 +1,113 @@
+// Import all the tools needed to customize the theme and extract parts of it
+@import '~@angular/material/theming';
+@import 'src/theme';
+
+:host {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to top right, mat-color($pixea-app-accent, 600), mat-color($pixea-app-accent, 300));
+
+    mat-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 100%;
+        min-width: 320px;
+        max-width: 360px;
+        margin: 8px;
+
+        .logo {
+            display: flex;
+            width: calc(100% + 48px);
+            margin: -24px -24px 0 -24px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+
+            background-color: mat-color($mat-grey, 100);
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 120px;
+                margin: 48px 0;
+            }
+        }
+
+        mat-progress-bar {
+            position: absolute;
+            top: 147px;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            margin: 16px 0;
+
+            &.buttons {
+                button {
+                    width: 100%;
+                    margin: 8px 0;
+                }
+            }
+        }
+
+        mat-card-title, mat-card-actions {
+            margin: 16px;
+        }
+
+        mat-card-title, mat-card-content, mat-card-actions {
+            width: 100%;
+        }
+    }
+
+    button.google {
+        background-color: #db4437;
+        color: #ffffff;
+    }
+
+    button.facebook {
+        background-color: #3b5998;
+        color: #ffffff;
+    }
+
+    button.twitter {
+        background-color: #55acee;
+        color: #ffffff;
+    }
+
+    form {
+        mat-form-field {
+            width: 100%;
+        }
+
+        &#create {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            mat-form-field {
+                max-width: 164px;
+                margin: 8px;
+            }
+
+            mat-icon.toggle {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    :host {
+        mat-card {
+            .logo {
+                width: calc(100% + 32px);
+            }
+        }
+    }
+}
