@@ -20,21 +20,21 @@ export class PhotosService {
   }
 
   getPhotos() {
-    return this.photosCollection.snapshotChanges().map(changes =>
+    return this.photosCollection.snapshotChanges().pipe(map(changes =>
       changes.map(a => {
         const data = a.payload.doc.data() as Photo;
         const photoId = a.payload.doc.id;
         return { id: photoId, ...data };
       })
-    );
+    ));
   }
 
   getPhoto(id: string) {
-    return this.photosCollection.doc<Photo>(id).snapshotChanges().map(changes => {
+    return this.photosCollection.doc<Photo>(id).snapshotChanges().pipe(map(changes => {
       const data = changes.payload.data() as Photo;
       const photoId = changes.payload.id;
       return { id: photoId, ...data };
-    });
+    }));
   }
 
   addPhoto(data: Photo) {
