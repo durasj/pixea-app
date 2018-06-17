@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
@@ -31,7 +31,8 @@ export class AuthComponent implements OnInit {
   constructor(
     private afAuth: AngularFireAuth,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone
   ) { }
 
   signWithGoogle() {
@@ -208,7 +209,10 @@ export class AuthComponent implements OnInit {
   }
 
   private redirectToDash() {
-    this.router.navigate(['/']);
+    // Run from the firebase callback so could cause issues otherwise
+    this.ngZone.run(() => {
+      this.router.navigate(['/']);
+    });
   }
 
   private getGravatarURL(user: User) {
