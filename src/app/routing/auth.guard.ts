@@ -12,12 +12,12 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   canActivate(
-    next: ActivatedRouteSnapshot,
+    route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean {
+  ): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
-      this.afAuth.authState.subscribe(res => {
-        if (res && res.uid) {
+      this.afAuth.authState.subscribe(user => {
+        if (user && user.uid) {
           resolve(true);
         } else {
           this.router.navigate(['/auth']);
