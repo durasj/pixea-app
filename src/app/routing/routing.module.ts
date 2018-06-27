@@ -11,7 +11,20 @@ import { AuthGuard } from './auth.guard';
 import { DashComponent } from '../core/dash/dash.component';
 
 export const appRoutes: Routes = [
-    { path: 'auth', component: AuthComponent },
+    {
+      path: 'auth',
+      component: AuthComponent,
+      children: [
+        {
+          path: 'email',
+          component: AuthComponent,
+        },
+        {
+          path: 'email/:mail',
+          component: AuthComponent
+        },
+      ]
+    },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: '',
         redirectTo: '/photos',

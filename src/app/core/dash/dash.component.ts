@@ -5,6 +5,10 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { User } from '@firebase/auth-types';
+import { Store, Select } from '@ngxs/store';
+import { Navigate } from '@ngxs/router-plugin';
+import { AuthState } from '../../shared/auth.state';
+import { Logout } from '../../shared/auth.actions';
 
 @Component({
   selector: 'app-dash',
@@ -16,16 +20,21 @@ export class DashComponent implements OnInit {
   public isSmallScreen: boolean;
   public authInfo$: Observable<User>;
 
+  @Select(state => state.auth.user) user$: Observable<AuthState>;
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private afAuth: AngularFireAuth,
     private router: Router,
-  ) {
-    this.authInfo$ = this.afAuth.authState;
+    private store: Store,
+  ) { }
+
+  navigate(route: string) {
+    this.store.dispatch(new Navigate([route]));
   }
 
   logout() {
-    this.afAuth.auth.signOut();
+    this.store.dispatch(new Logout());
   }
 
   ngOnInit() {

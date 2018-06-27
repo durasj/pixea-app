@@ -4,10 +4,12 @@ import { NgModule } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import * as firebase from 'firebase';
-import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
-import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
-import TwitterAuthProvider = firebase.auth.TwitterAuthProvider;
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 import { environment } from '../environments/environment';
 
@@ -17,7 +19,6 @@ import { CoreModule } from './core/core.module';
 import { PhotosModule } from './photos/photos.module';
 import { OrdersModule } from './orders/orders.module';
 import { RoutingModule } from './routing/routing.module';
-import { AngularFireAuthModule } from 'angularfire2/auth';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,14 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
+    NgxsModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsRouterPluginModule.forRoot(),
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
+    AngularFireStorageModule,
     AngularFireAuthModule,
 
     // Feature modules

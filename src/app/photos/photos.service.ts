@@ -19,11 +19,11 @@ export class PhotosService {
     this.photosCollection = this.afs.collection('photos');
   }
 
-  getPhotos() {
+  getPhotos(): Observable<Photo[]> {
     return this.photosCollection.snapshotChanges().pipe(map(changes =>
-      changes.map(a => {
+      changes.map((a): Photo => {
         const data = a.payload.doc.data() as Photo;
-        const photoId = a.payload.doc.id;
+        const photoId = a.payload.doc.id as string;
         return { id: photoId, ...data };
       })
     ));

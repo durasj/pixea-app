@@ -14,6 +14,10 @@
     .mat-sidenav-container {
         margin-top: 64px;
         flex: 1;
+
+        mat-nav-list {
+            padding-top: 0;
+        }
     }
 
     .mat-sidenav {
