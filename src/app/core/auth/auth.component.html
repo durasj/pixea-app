@@ -37,12 +37,11 @@
   <!-- /Email -->
 
   <!-- Email existing -->
-  {{ (emailStatus | async) }}
-  <mat-card-title *ngIf="emailStatus === 'existing'">
+  <mat-card-title *ngIf="(emailStatus | async) === 'existing'">
     Sign in with email
   </mat-card-title>
 
-  <mat-card-content *ngIf="emailStatus === 'existing'">
+  <mat-card-content *ngIf="(emailStatus | async) === 'existing'">
     <form role="form" id="password" #passwordForm="ngForm" (submit)="signWithEmail(passwordForm)">
       <mat-form-field>
         <input name="password" ngModel matInput placeholder="Password" type="password" required>
@@ -53,33 +52,33 @@
     </form>
   </mat-card-content>
 
-  <mat-card-actions *ngIf="emailStatus === 'existing'" align="end">
+  <mat-card-actions *ngIf="(emailStatus | async) === 'existing'" align="end">
     <button mat-button (click)="navigate('email')">Back</button>
     <button mat-raised-button color="primary" type="submit" form="password">NEXT</button>
   </mat-card-actions>
   <!-- /Email existing -->
 
   <!-- Already used -->
-  <mat-card-title *ngIf="emailStatus === 'Google' || emailStatus === 'Facebook'">
+  <mat-card-title *ngIf="(emailStatus | async) === 'Google' || (emailStatus | async) === 'Facebook'">
     You already have an account
   </mat-card-title>
 
-  <mat-card-content *ngIf="emailStatus === 'Google' || emailStatus === 'Facebook'">
-    You've already used {{ emailFormControl.value }}. Sign in with {{ emailStatus }} to continue.
+  <mat-card-content *ngIf="(emailStatus | async) === 'Google' || (emailStatus | async) === 'Facebook'">
+    You've already used {{ emailFormControl.value }}. Sign in with {{ (emailStatus | async) }} to continue.
   </mat-card-content>
 
-  <mat-card-actions *ngIf="emailStatus === 'Google' || emailStatus === 'Facebook'" align="end">
+  <mat-card-actions *ngIf="(emailStatus | async) === 'Google' || (emailStatus | async) === 'Facebook'" align="end">
     <button mat-button (click)="navigate('email')">Back</button>
     <button mat-raised-button color="primary" (click)="signWithExisting()">Sign in with {{ existingAccountProvider }}</button>
   </mat-card-actions>
   <!-- /Already used -->
 
   <!-- New account -->
-  <mat-card-title *ngIf="newAccount">
+  <mat-card-title *ngIf="(emailStatus | async) === 'new'">
     Create account
   </mat-card-title>
 
-  <mat-card-content *ngIf="newAccount">
+  <mat-card-content *ngIf="(emailStatus | async) === 'new'">
     <form role="form" id="create" #createForm="ngForm" (submit)="createWithEmail(createForm)">
       <mat-form-field>
         <input name="first" ngModel matInput placeholder="First name" type="text" required>
@@ -121,8 +120,8 @@
     </form>
   </mat-card-content>
 
-  <mat-card-actions *ngIf="newAccount" align="end">
-    <button mat-button (click)="newAccount = false;">Back</button>
+  <mat-card-actions *ngIf="(emailStatus | async) === 'new'" align="end">
+    <button mat-button (click)="navigate('email')">Back</button>
     <button mat-raised-button color="primary" type="submit" form="create">NEXT</button>
   </mat-card-actions>
   <!-- /New account -->

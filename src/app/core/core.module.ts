@@ -24,6 +24,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthComponent } from './auth/auth.component';
 import { DashComponent } from './dash/dash.component';
+import { AuthState } from '../shared/auth.state';
 
 @NgModule({
   imports: [
