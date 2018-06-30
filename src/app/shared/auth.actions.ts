@@ -1,5 +1,5 @@
 import { User } from './auth.model';
-import * as firebase from 'firebase/app';
+import { User as FirebaseUser } from 'firebase/app';
 
 // Actions
 export class CheckSession {
@@ -25,7 +25,7 @@ export class CreateUserWithEmailAndPassword {
 }
 export class UpdateProfile {
   static type = '[Auth] UpdateProfile';
-  constructor(public user: firebase.User, public profile: {
+  constructor(public user: FirebaseUser, public profile: {
     displayName: string;
     photoURL: string;
   }) {}

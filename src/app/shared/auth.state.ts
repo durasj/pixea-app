@@ -72,11 +72,9 @@ export class AuthState implements NgxsOnInit {
       tap((user: UserInfo) => {
         ctx.patchState({ initialized: true });
         if (user) {
-          console.log(`CheckSession: ${user.displayName} is logged in`);
           ctx.dispatch(new LoginSuccess(user));
           return;
         }
-        console.log('CheckSession: no user found');
       })
     );
   }

@@ -24,6 +24,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthComponent } from './auth/auth.component';
 import { DashComponent } from './dash/dash.component';
+import { DropZoneDirective } from './drop-zone/drop-zone.directive';
 import { AuthState } from '../shared/auth.state';
 
 @NgModule({
@@ -55,12 +56,14 @@ import { AuthState } from '../shared/auth.state';
     ProfileComponent,
     PageNotFoundComponent,
     AuthComponent,
+    DropZoneDirective,
   ],
   exports: [
     DashComponent,
     ProfileComponent,
     PageNotFoundComponent,
     AuthComponent,
+    DropZoneDirective,
   ]
 })
 export class CoreModule { }

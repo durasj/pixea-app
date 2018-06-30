@@ -1,0 +1,85 @@
+// Import all the tools needed to use theming
+@import '~@angular/material/theming';
+@import 'src/theme';
+
+:host {
+    .toolbar {
+        display: flex;
+        padding: 24px 24px 0;
+        width: calc(100% - 48px);
+
+        label[for="file-upload"],
+        button:not(:last-of-type) {
+            margin-right: 16px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .order {
+            align-self: center;
+            margin-left: auto;
+        }
+    }
+
+    .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+        transition: background-color 250ms, box-shadow 250ms;
+        padding: 16px;
+ 
+        mat-card {
+            margin: 16px;
+
+            svg.img-placeholder {
+                width: calc(100% + 48px);
+
+                rect {
+                    fill: #f5f5f5;
+                    fill-opacity: 1;
+                }
+
+                text {
+                    font: normal normal normal 48px/1.25 Roboto, sans-serif;
+                    text-align: center;
+                    text-anchor: middle;
+                    fill: #757575;
+                    pointer-events: none;
+                }
+            }
+
+            img,
+            svg.img-placeholder {
+                border-radius: 8px 8px 0 0;
+                margin: -24px -24px 0 -24px;
+            }
+
+            .loader {
+                height: 8px;
+                margin: -4px -24px 4px -24px;
+            }
+
+            .name {
+                margin: 0;
+            }
+
+            &:hover {
+                background-color: mat-color($pixea-app-primary, 50);
+            }
+
+            &.selected {
+                background-color: mat-color($pixea-app-primary, 100);
+            }
+        }
+
+        &.hovering {
+            background-color: mat-color($pixea-app-primary, 100);
+            box-shadow: inset 2px 2px mat-color($pixea-app-primary, 500), inset -2px -2px mat-color($pixea-app-primary, 500), 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .placeholder {
+            grid-column: 1 / 4;
+        }
+    }
+}
