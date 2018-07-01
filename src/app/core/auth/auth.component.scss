@@ -1,4 +1,4 @@
-// Import all the tools needed to customize the theme and extract parts of it
+// Import all the tools needed to use theming
 @import '~@angular/material/theming';
 @import 'src/theme';
 
@@ -7,7 +7,11 @@
     min-height: 100vh;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to top right, mat-color($pixea-app-accent, 600), mat-color($pixea-app-accent, 300));
+    background: linear-gradient(to top right, mat-color($pixea-app-accent, 400), mat-color($pixea-app-accent, 100));
+
+    .logo > img {
+        width: 240px;
+    }
 
     mat-card {
         display: flex;
@@ -17,7 +21,10 @@
         width: 100%;
         min-width: 320px;
         max-width: 360px;
+        min-height: 320px;
         margin: 8px;
+
+        transition: height 1s;
 
         .logo {
             display: flex;
@@ -63,7 +70,7 @@
         mat-card-title, mat-card-content, mat-card-actions {
             width: 100%;
         }
-    }
+    } 
 
     button.google {
         background-color: #db4437;

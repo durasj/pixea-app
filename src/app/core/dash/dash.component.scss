@@ -1,31 +1,36 @@
 :host {
-    max-width: 1170px;
     margin: auto;
     display: flex;
     min-height: 100vh;
     flex-direction: column;
 
     >.mat-toolbar {
-        max-width: 1170px;
         position: fixed;
         z-index: 100;
+
+        img.logo {
+            width: 72px;
+        }
     }
 
     .mat-sidenav-container {
+        display: flex;
         margin-top: 64px;
         flex: 1;
 
         mat-nav-list {
             padding-top: 0;
         }
+
+        .mat-sidenav-content {
+            flex: 1;
+            height: auto;
+            min-height: 100%;
+        }
     }
 
     .mat-sidenav {
         width: 240px;
-    }
-
-    .mat-sidenav-content {
-        padding: 32px;
     }
 }
 
@@ -33,7 +38,11 @@
     :host {
         .mat-sidenav-container {
             margin-top: 56px;
-            flex: 1;
+        }
+
+        mat-sidenav {
+            // TODO: Find out why the inline style is incorrect
+            top: 56px !important;
         }
     }
 }

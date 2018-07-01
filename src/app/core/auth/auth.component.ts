@@ -1,18 +1,18 @@
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+import { auth } from 'firebase/app';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { User } from 'firebase';
+import { User } from 'firebase/app';
 import * as md5 from 'md5';
 import { Store, Actions, ofActionDispatched, Select } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
 import { Observable } from 'rxjs/Observable';
 
-import EmailAuthProvider = firebase.auth.EmailAuthProvider;
-import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
-import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
+import EmailAuthProvider = auth.EmailAuthProvider;
+import GoogleAuthProvider = auth.GoogleAuthProvider;
+import FacebookAuthProvider = auth.FacebookAuthProvider;
 import {
   LoginWithGoogle,
   LoginWithFacebook,
@@ -27,6 +27,7 @@ import {
   UpdateProfile,
   UpdateProfileFailed,
 } from '../../shared/auth.actions';
+import { AuthState } from '../../shared/auth.state';
 
 @Component({
   selector: 'app-auth',
@@ -36,10 +37,11 @@ import {
 export class AuthComponent implements OnInit {
 
   // TODO: Consider moving to the state store
-  public emailStatus: Observable<'new' | 'existing' | 'Google' | 'Facebook'>;
+  public emailStatus: 'new' | 'existing' | 'Google' | 'Facebook';
   public loading = false;
 
   @Select(state => state.router.state.url) url$: Observable<string>;
+  @Select(state => state.auth) auth$: Observable<AuthState>;
 
   @ViewChild('emailForm') emailForm: NgForm;
   @ViewChild('createForm') createForm: NgForm;
@@ -99,7 +101,7 @@ export class AuthComponent implements OnInit {
 
     this.loading = true;
 
-    this.url$.subscribe((url) => {
+    this.url$.first().toPromise().then((url) => {
       // TODO: Refactor, we should get email from the param and not the URL
       const email = url.replace('/auth/email/', '');
 
@@ -107,7 +109,7 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  createWithEmail(form: NgForm) {
+  async createWithEmail(form: NgForm) {
     if (!form.valid) {
       this.snackBar.open('Please check the form for errors.', 'OK', {
         duration: 3000
@@ -124,28 +126,28 @@ export class AuthComponent implements OnInit {
 
     this.loading = true;
 
-    this.url$.subscribe((url) => {
-      // TODO: Refactor, we should get email from the param and not the URL
-      const email = url.replace('/auth/email/', '');
+    const url = await this.url$.first().toPromise();
 
-      this.actions$.pipe(ofActionDispatched(CreateUserSuccess)).subscribe(
-        ({ user }) => {
-          this.store.dispatch(
-            new UpdateProfile(user, {
-              displayName: [
-                form.controls.first.value,
-                form.controls.last.value
-              ].join(' '),
-              photoURL: this.getGravatarURL(user)
-            })
-          );
-        }
-      );
+    // TODO: Refactor, we should get email from the param and not the URL
+    const email = url.replace('/auth/email/', '');
 
-      this.store.dispatch(
-        new CreateUserWithEmailAndPassword(email, form.controls.password.value)
-      );
-    });
+    this.actions$.pipe(ofActionDispatched(CreateUserSuccess)).first().toPromise().then(
+      ({ user }) => {
+        this.store.dispatch(
+          new UpdateProfile(user, {
+            displayName: [
+              form.controls.first.value,
+              form.controls.last.value
+            ].join(' '),
+            photoURL: this.getGravatarURL(user)
+          })
+        );
+      }
+    );
+
+    this.store.dispatch(
+      new CreateUserWithEmailAndPassword(email, form.controls.password.value)
+    );
   }
 
   signWithExisting() {
@@ -165,10 +167,10 @@ export class AuthComponent implements OnInit {
         return 'Your account is disabled.';
 
       case 'auth/user-not-found':
-        return 'Wrong password or e-mail.';
+        return 'User with specified email was not found.';
 
       case 'auth/wrong-password':
-        return 'Wrong password or e-mail.';
+        return 'Wrong password. Please try it again.';
 
       case 'auth/popup-closed-by-user':
         return 'Popup was closed before finishing the sign in process.';
@@ -184,31 +186,23 @@ export class AuthComponent implements OnInit {
   private checkEmail(email) {
     this.loading = true;
 
-    this.emailStatus = new Observable<'new' | 'existing' | 'Google' | 'Facebook'>(
-      (observer) => {
-        const { next, error } = observer;
-
-        this.actions$.pipe(ofActionDispatched(FetchSignInMethodsSuccess)).subscribe(
-          ({ methods }) => next(this.checkEmailResult(methods))
-        );
-
-        this.store.dispatch(new FetchSignInMethodsForEmail(email));
-      }
-    );
+    this.store.dispatch(new FetchSignInMethodsForEmail(email));
   }
 
   private checkEmailResult(methods) {
-    if (methods.length === 0) {
-      return 'new';
-    } else if (methods.indexOf(EmailAuthProvider.PROVIDER_ID) !== -1) {
-      return 'existing';
-    } else if (methods.indexOf(GoogleAuthProvider.PROVIDER_ID) !== -1) {
-      return 'Google';
-    } else if (methods.indexOf(FacebookAuthProvider.PROVIDER_ID) !== -1) {
-      return 'Facebook';
-    }
+    this.ngZone.run(() => {
+      if (methods.length === 0) {
+        this.emailStatus = 'new';
+      } else if (methods.indexOf(EmailAuthProvider.PROVIDER_ID) !== -1) {
+        this.emailStatus = 'existing';
+      } else if (methods.indexOf(GoogleAuthProvider.PROVIDER_ID) !== -1) {
+        this.emailStatus = 'Google';
+      } else if (methods.indexOf(FacebookAuthProvider.PROVIDER_ID) !== -1) {
+        this.emailStatus = 'Facebook';
+      }
 
-    this.loading = false;
+      this.loading = false;
+    });
   }
 
   ngOnInit() {
@@ -228,6 +222,10 @@ export class AuthComponent implements OnInit {
         this.emailStatus = undefined;
         this.loading = false;
       }
+    );
+
+    this.actions$.pipe(ofActionDispatched(FetchSignInMethodsSuccess)).subscribe(
+      ({ methods }) => this.checkEmailResult(methods)
     );
   }
 

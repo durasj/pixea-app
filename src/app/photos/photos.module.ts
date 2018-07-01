@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { MatCardModule, MatButtonModule, MatSnackBarModule, MatProgressBarModule } from '@angular/material';
 
 import { PhotoDetailComponent } from './photo-detail/photo-detail.component';
 import { PhotoListComponent } from './photo-list/photo-list.component';
@@ -21,6 +22,11 @@ const photosRoutes: Routes = [
     RouterModule.forChild(photosRoutes),
 
     CoreModule,
+
+    MatCardModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatProgressBarModule,
   ],
   declarations: [
     PhotoDetailComponent,
