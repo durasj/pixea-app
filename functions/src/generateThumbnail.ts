@@ -76,23 +76,35 @@ const generateThumbnail = functions.storage.object().onFinalize((object) => {
     const streamAsPromise = new Promise((resolve, reject) =>
         thumbnailUploadStream.on('finish', resolve).on('error', reject));
 
-    return streamAsPromise.then(async () => {
-        // Thumbnail is available for cca 6 months
-        const thumbnailUrl = await bucket.file(thumbFilePath).getSignedUrl({
-            action: 'read',
-            expires: (new Date()).setMonth((new Date()).getMonth() + 6)
-        });
-
-        await bucket.file(thumbFilePath).setMetadata({
-            cacheControl: 'private, max-age=' + (60 * 60 * 24 * 31 * 6)
-        });
-
-        admin.firestore().collection('photos').doc(photoId).set({
-            thumbnailUrl: thumbnailUrl[0]
-        }, { merge: true });
-        console.log('Thumbnail created successfully');
-        return null;
+    // TODO: Make sure promise is returned so the cloud functions don't end sooner with 'connection error'
+    let thumbnailUrl;
+    return new Promise((resolve, reject) => {
+        streamAsPromise.then(() => {
+            console.log('Creating URL');
+            // Thumbnail is available for cca 6 months
+            return bucket.file(thumbFilePath).getSignedUrl({
+                action: 'read',
+                expires: (new Date()).setMonth((new Date()).getMonth() + 6)
+            });
+        }).then((responseThumbnailUrl) => {
+            console.log('Setting cache');
+            thumbnailUrl = responseThumbnailUrl;
+            return bucket.file(thumbFilePath).setMetadata({
+                cacheControl: 'private, max-age=' + (60 * 60 * 24 * 31 * 6)
+            });
+        }).then(() => {
+            console.log('Getting metadata');
+            return bucket.file(filePath).getMetadata();
+        }).then((response) => {
+            console.log('Setting thumbnail');
+            const createdBy = response[0].metadata.createdBy;
+    
+            return admin.firestore().collection('users/' + createdBy + '/photos').doc(photoId).set({
+                thumbnailUrl: thumbnailUrl[0]
+            }, { merge: true });
+        }).then(resolve).catch(reject);
     });
+
 });
 
 export default generateThumbnail;

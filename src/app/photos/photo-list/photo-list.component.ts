@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { PhotosService, Photo } from '../photos.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
@@ -45,16 +45,17 @@ export class PhotoListComponent implements OnInit {
     private storage: AngularFireStorage,
     private afs: AngularFirestore,
     private snackBar: MatSnackBar,
-    private ngZone: NgZone,
   ) {
-    this.photos$ = service.getPhotos().pipe(
-      map((photos) =>
-        photos
-          .filter((photo) => photo.deleted !== true)
-          .map((photo) => ({ ...photo, ext: photo.name.match(/\.[0-9a-z]+$/i)[0] }))
-          .sort((a, b) => b.date.seconds - a.date.seconds)
-      )
-    );
+    service.initialized.then(() => {
+      this.photos$ = service.getPhotos().pipe(
+        map((photos) =>
+          photos
+            .filter((photo) => photo.deleted !== true)
+            .map((photo) => ({ ...photo, ext: photo.name.match(/\.[0-9a-z]+$/i)[0] }))
+            .sort((a, b) => b.createdAt.seconds - a.createdAt.seconds)
+        )
+      );
+    });
   }
 
   addedFiles(event: FileList) {
@@ -76,7 +77,7 @@ export class PhotoListComponent implements OnInit {
 
     const photo = await this.service.addPhoto({
       name: file.name,
-      date: firestore.Timestamp.now(),
+      createdAt: firestore.Timestamp.now(),
     });
 
     // The storage path
@@ -88,7 +89,7 @@ export class PhotoListComponent implements OnInit {
     this.uploadTasks[photo.id] = this.storage.upload(
       path,
       file,
-      { customMetadata: { owner: user.displayName } }
+      { customMetadata: { createdBy: user.uid } }
     );
 
     this.uploadProgress[photo.id] = this.uploadTasks[photo.id].percentageChanges().pipe(

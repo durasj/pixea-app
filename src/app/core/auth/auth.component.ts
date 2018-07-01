@@ -109,7 +109,7 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  createWithEmail(form: NgForm) {
+  async createWithEmail(form: NgForm) {
     if (!form.valid) {
       this.snackBar.open('Please check the form for errors.', 'OK', {
         duration: 3000
@@ -126,28 +126,28 @@ export class AuthComponent implements OnInit {
 
     this.loading = true;
 
-    this.url$.first().toPromise().then((url) => {
-      // TODO: Refactor, we should get email from the param and not the URL
-      const email = url.replace('/auth/email/', '');
+    const url = await this.url$.first().toPromise();
 
-      this.actions$.pipe(ofActionDispatched(CreateUserSuccess)).first().toPromise().then(
-        ({ user }) => {
-          this.store.dispatch(
-            new UpdateProfile(user, {
-              displayName: [
-                form.controls.first.value,
-                form.controls.last.value
-              ].join(' '),
-              photoURL: this.getGravatarURL(user)
-            })
-          );
-        }
-      );
+    // TODO: Refactor, we should get email from the param and not the URL
+    const email = url.replace('/auth/email/', '');
 
-      this.store.dispatch(
-        new CreateUserWithEmailAndPassword(email, form.controls.password.value)
-      );
-    });
+    this.actions$.pipe(ofActionDispatched(CreateUserSuccess)).first().toPromise().then(
+      ({ user }) => {
+        this.store.dispatch(
+          new UpdateProfile(user, {
+            displayName: [
+              form.controls.first.value,
+              form.controls.last.value
+            ].join(' '),
+            photoURL: this.getGravatarURL(user)
+          })
+        );
+      }
+    );
+
+    this.store.dispatch(
+      new CreateUserWithEmailAndPassword(email, form.controls.password.value)
+    );
   }
 
   signWithExisting() {

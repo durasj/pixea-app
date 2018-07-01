@@ -1,78 +1,81 @@
 <app-dash>
-
-  <div class="toolbar">
-    <input type="file" (change)="addedFiles($event.target.files)" #addPhotoInput />
-    <button mat-raised-button (click)="addPhotoInput.click()">Add photo</button>
-    <button
-      mat-raised-button
-      color="primary"
-      *ngIf="selected.size"
-    >Create order from {{ selected.size }} selected photo(s)</button>
-
-    <span class="order mat-caption">Ordered by newest first</span>
-  </div>
-
-  <div class="photo-grid"
+  <div
+    class="container"
     appDropZone
     (hovered)="isHovering = $event"
     (dropped)="addedFiles($event)"
     [class.hovering]="isHovering"
   >
-    <mat-card
-      *ngFor="let photo of photos$ | async"
-      [class.selected]="selected.has(photo.id)"
-      (click)="selected.has(photo.id) ? selected.delete(photo.id) : selected.add(photo.id)"
-    >
-      <img
-        mat-card-image
-        *ngIf="photo.thumbnailUrl"
-        src="{{ photo.thumbnailUrl }}"
-        alt="{{ photo.name }}"
-      >
-      <svg class="img-placeholder" *ngIf="!photo.thumbnailUrl" viewBox="0 0 400 300">
-        <rect
-          width="400px"
-          height="300px"
-          x="0"
-          y="0"
-        />
-        <text
-           x="200"
-           y="150"
-           dominant-baseline="central"
-        >{{ photo.ext | uppercase }}</text>
-      </svg>
+    <div class="toolbar">
+      <input type="file" (change)="addedFiles($event.target.files)" #addPhotoInput />
+      <button mat-raised-button (click)="addPhotoInput.click()">Add photo</button>
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="selected.size"
+      >Create order from {{ selected.size }} selected photo(s)</button>
 
-      <div class="loader">
-        <mat-progress-bar
-          *ngIf="(uploadProgress[photo.id] | async)"
-          mode="determinate"
-          value="{{ (uploadProgress[photo.id] | async) }}"
-        ></mat-progress-bar>
-      </div>
-      <mat-card-content>
-        <div class="mat-subheading-2 name">{{ photo.name }}</div>
-        <div class="mat-caption">{{ photo.date?.toDate() | date }}</div>
-      </mat-card-content>
-      <mat-card-actions *ngIf="(uploadProgress[photo.id] | async)">
-        <button
-          mat-button
-          *ngIf="(uploadSnapshots[photo.id] | async)?.state === 'running'"
-          (click)="pause($event, photo)"
-        >PAUSE</button>
-        <button
-          mat-button
-          *ngIf="(uploadSnapshots[photo.id] | async)?.state === 'paused'"
-          (click)="resume($event, photo)"
-        >RESUME</button>
-        <button mat-button (click)="cancel($event, photo)">CANCEL</button>
-      </mat-card-actions>
-      <mat-card-actions *ngIf="!(uploadProgress[photo.id] | async)">
-        <a mat-button *ngIf="photo.url" href="{{ photo.url }}" target="_blank">OPEN</a>
-        <button mat-button (click)="markAsDeleted($event, photo)">DELETE</button>
-      </mat-card-actions>
-    </mat-card>
-    <div class="placeholder" *ngIf="(photos$ | async)?.length === 0">
+      <span class="order mat-caption">Ordered by newest first</span>
+    </div>
+
+    <div class="photo-grid">
+      <mat-card
+        *ngFor="let photo of photos$ | async"
+        [class.selected]="selected.has(photo.id)"
+        (click)="selected.has(photo.id) ? selected.delete(photo.id) : selected.add(photo.id)"
+      >
+        <img
+          mat-card-image
+          *ngIf="photo.thumbnailUrl"
+          src="{{ photo.thumbnailUrl }}"
+          alt="{{ photo.name }}"
+        >
+        <svg class="img-placeholder" *ngIf="!photo.thumbnailUrl" viewBox="0 0 400 300">
+          <rect
+            width="400px"
+            height="300px"
+            x="0"
+            y="0"
+          />
+          <text
+            x="200"
+            y="150"
+            dominant-baseline="central"
+          >{{ photo.ext | uppercase }}</text>
+        </svg>
+
+        <div class="loader">
+          <mat-progress-bar
+            *ngIf="(uploadProgress[photo.id] | async)"
+            mode="determinate"
+            value="{{ (uploadProgress[photo.id] | async) }}"
+          ></mat-progress-bar>
+        </div>
+        <mat-card-content>
+          <div class="mat-subheading-2 name">{{ photo.name }}</div>
+          <div class="mat-caption">{{ photo.createdAt?.toDate() | date }}</div>
+        </mat-card-content>
+        <mat-card-actions *ngIf="(uploadProgress[photo.id] | async)">
+          <button
+            mat-button
+            *ngIf="(uploadSnapshots[photo.id] | async)?.state === 'running'"
+            (click)="pause($event, photo)"
+          >PAUSE</button>
+          <button
+            mat-button
+            *ngIf="(uploadSnapshots[photo.id] | async)?.state === 'paused'"
+            (click)="resume($event, photo)"
+          >RESUME</button>
+          <button mat-button (click)="cancel($event, photo)">CANCEL</button>
+        </mat-card-actions>
+        <mat-card-actions *ngIf="!(uploadProgress[photo.id] | async)">
+          <a mat-button *ngIf="photo.url" href="{{ photo.url }}" target="_blank">OPEN</a>
+          <button mat-button (click)="markAsDeleted($event, photo)">DELETE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div class="grid-placeholder" *ngIf="(photos$ | async)?.length === 0">
       No photos yet. Upload some by dropping it here or pressing the button.
     </div>
   </div>

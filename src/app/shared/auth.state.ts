@@ -128,7 +128,7 @@ export class AuthState implements NgxsOnInit {
   @Action(CreateUserWithEmailAndPassword)
   createUserWithEmailAndPassword(ctx: StateContext<AuthStateModel>, action: CreateUserWithEmailAndPassword) {
     return this.afAuth.auth.createUserWithEmailAndPassword(action.email, action.password).then(
-      (user: firebase.User) => {
+      ({ user }) => {
         ctx.dispatch(new CreateUserSuccess(user));
       })
       .catch(error => {
@@ -159,7 +159,7 @@ export class AuthState implements NgxsOnInit {
    * Events
    */
 
-  @Action(LoginSuccess)
+  @Action([LoginSuccess, CreateUserSuccess])
   onLoginSuccess(ctx: StateContext<AuthStateModel>) {
     ctx.dispatch(new Navigate(['/']));
   }
@@ -169,7 +169,7 @@ export class AuthState implements NgxsOnInit {
     ctx.dispatch(new Navigate(['/auth']));
   }
 
-  @Action(LoginSuccess)
+  @Action([LoginSuccess, CreateUserSuccess])
   setUserStateOnSuccess(ctx: StateContext<AuthStateModel>, event: LoginSuccess) {
     ctx.patchState({
       user: event.user
@@ -187,11 +187,6 @@ export class AuthState implements NgxsOnInit {
   @Action(FetchSignInMethodsFailed)
   onFetchSignInMethodsFailed(ctx: StateContext<AuthStateModel>) {
     ctx.dispatch(new Navigate(['/auth/email']));
-  }
-
-  @Action(UpdateProfileSuccess)
-  onUpdateProfileSuccess(ctx: StateContext<AuthStateModel>) {
-    ctx.dispatch(new Navigate(['/']));
   }
 
 }

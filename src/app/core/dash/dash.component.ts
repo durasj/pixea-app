@@ -23,7 +23,6 @@ export class DashComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private afAuth: AngularFireAuth,
     private router: Router,
     private store: Store,
   ) { }

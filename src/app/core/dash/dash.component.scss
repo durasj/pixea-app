@@ -14,11 +14,18 @@
     }
 
     .mat-sidenav-container {
+        display: flex;
         margin-top: 64px;
         flex: 1;
 
         mat-nav-list {
             padding-top: 0;
+        }
+
+        .mat-sidenav-content {
+            flex: 1;
+            height: auto;
+            min-height: 100%;
         }
     }
 
