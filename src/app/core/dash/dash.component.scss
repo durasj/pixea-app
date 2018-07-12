@@ -20,6 +20,10 @@
 
         mat-nav-list {
             padding-top: 0;
+
+            .mat-list-item.active {
+                background: rgba(0, 0, 0, 0.04);
+            }
         }
 
         .mat-sidenav-content {

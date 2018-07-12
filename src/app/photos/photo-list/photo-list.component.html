@@ -13,6 +13,7 @@
         mat-raised-button
         color="primary"
         *ngIf="selected.size"
+        (click)="prepareOrder()"
       >Create order from {{ selected.size }} selected photo(s)</button>
 
       <span class="order mat-caption">Ordered by newest first</span>

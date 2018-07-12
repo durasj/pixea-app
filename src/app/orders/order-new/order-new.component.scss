@@ -1,0 +1,9 @@
+:host {
+    .container {
+        padding: 24px;
+    }
+
+    mat-form-field:not(:last-of-type) {
+        margin-right: 8px;
+    }
+}
