@@ -29,12 +29,12 @@
     #sidenav
   >
     <mat-nav-list>
-      <a mat-list-item (click)="navigate('/photos')">
+      <a mat-list-item (click)="navigate('/photos')" [class.active]="isActive('/photo') | async">
         <mat-icon mat-list-icon>photo_library</mat-icon>
         <span mat-line>Photos</span>
         <span mat-line class="secondary">Your photos</span>
       </a>
-      <a mat-list-item (click)="navigate('/orders')">
+      <a mat-list-item (click)="navigate('/orders')" [class.active]="isActive('/order') | async">
         <mat-icon mat-list-icon>shopping_basket</mat-icon>
         <span mat-line>Orders</span>
         <span mat-line class="secondary">Your orders</span>

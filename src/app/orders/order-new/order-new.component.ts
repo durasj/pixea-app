@@ -10,11 +10,11 @@ import { firestore } from 'firebase/app';
 import { Navigate } from '@ngxs/router-plugin';
 
 @Component({
-  selector: 'app-order-detail',
-  templateUrl: './order-detail.component.html',
-  styleUrls: ['./order-detail.component.scss']
+  selector: 'app-order-new',
+  templateUrl: './order-new.component.html',
+  styleUrls: ['./order-new.component.scss']
 })
-export class OrderDetailComponent implements AfterViewInit {
+export class OrderNewComponent implements AfterViewInit {
 
   public photos$: Observable<string[]>;
 
@@ -37,7 +37,7 @@ export class OrderDetailComponent implements AfterViewInit {
       return;
     }
 
-    const order = await this.service.addOrder({
+    const order = this.service.addOrder({
       photos: await this.photos$.first().toPromise(),
       type: this.createForm.controls.type.value,
       size: this.createForm.controls.size.value,
@@ -49,7 +49,7 @@ export class OrderDetailComponent implements AfterViewInit {
       createdAt: firestore.Timestamp.now(),
     });
 
-    this.store.dispatch(new Navigate(['/order/' + order.id]));
+    this.store.dispatch(new Navigate(['/orders']));
   }
 
   // TODO: Uggh ... ugly ... you know what to do with me ...

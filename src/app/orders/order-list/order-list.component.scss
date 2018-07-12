@@ -1,0 +1,16 @@
+:host {
+    .container {
+        padding: 24px;
+    }
+
+    mat-expansion-panel {
+        mat-form-field:not(:last-of-type) {
+            margin-right: 8px;
+        }
+    }
+
+    .list-placeholder {
+        padding: 0 24px 24px;
+        font-style: italic;
+    }
+}

@@ -1,5 +1,107 @@
 <app-dash>
-  <p>
-    order-list works!
-  </p>
+  <div class="container">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let order of orders$ | async">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ order.number }} pieces of {{ order.type }} {{ order.size }}
+          </mat-panel-title>
+          <mat-panel-description>
+            Ordered {{ order.createdAt.toDate() | date }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+    
+        <div>
+          <h3 class="mat-subtitle">Order Details</h3>
+
+          <mat-form-field>
+            <input matInput placeholder="Photos" disabled value="{{ order.photos.length }} photo(s)">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select disabled [value]="order.type" placeholder="Print Type" required>
+              <mat-option value="photo">
+                Photo
+              </mat-option>
+              <mat-option value="magnet">
+                Photo Magnet
+              </mat-option>
+              <mat-option value="panel">
+                Photo Panel
+              </mat-option>
+              <mat-option value="canvas">
+                Photo Canvas
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select disabled [value]="order.size" placeholder="Print Size" required>
+              <mat-option value="9x13">
+                9x13
+              </mat-option>
+              <mat-option value="10x15">
+                10x15
+              </mat-option>
+              <mat-option value="13x18">
+                13x18
+              </mat-option>
+              <mat-option value="15x20">
+                15x20
+              </mat-option>
+              <mat-option value="20x30">
+                20x30
+              </mat-option>
+              <mat-option value="30x40">
+                30x40
+              </mat-option>
+              <mat-option value="40x50">
+                40x50
+              </mat-option>
+              <mat-option value="40x60">
+                40x60
+              </mat-option>
+              <mat-option value="50x70">
+                50x70
+              </mat-option>
+              <mat-option value="60x80">
+                60x80
+              </mat-option>
+              <mat-option value="60x90">
+                60x90
+              </mat-option>
+              <mat-option value="other">
+                other (use comment)
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput disabled value="{{ order.number }}" placeholder="Number of Copies" type="number" required>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <h3 class="mat-subtitle">Contact Details</h3>
+
+          <mat-form-field>
+            <input matInput disabled value="{{ order.name }}" placeholder="Name" type="text" required>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput disabled value="{{ order.email }}" placeholder="Email" type="email" required>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <textarea matInput value="{{ order.comment }}" name="comment" disabled placeholder="Comment"></textarea>
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div *ngIf="(orders$ | async)?.length === 0" class="list-placeholder">
+        No orders yet. You can create one by choosing photos from Photos.
+    </div>
+  </div>
 </app-dash>

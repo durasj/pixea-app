@@ -12,6 +12,7 @@ import { UserInfo } from '@firebase/auth-types';
 import { MatSnackBar } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { firestore } from 'firebase/app';
+import { PrepareOrder } from '../../shared/orders.actions';
 
 @Component({
   selector: 'app-photo-list',
@@ -77,6 +78,7 @@ export class PhotoListComponent implements OnInit {
 
     const photo = await this.service.addPhoto({
       name: file.name,
+      // TODO: Do this server-side
       createdAt: firestore.Timestamp.now(),
     });
 
@@ -89,7 +91,10 @@ export class PhotoListComponent implements OnInit {
     this.uploadTasks[photo.id] = this.storage.upload(
       path,
       file,
-      { customMetadata: { createdBy: user.uid } }
+      { customMetadata: {
+        originalName: file.name,
+        createdBy: user.uid,
+      } }
     );
 
     this.uploadProgress[photo.id] = this.uploadTasks[photo.id].percentageChanges().pipe(
@@ -111,9 +116,12 @@ export class PhotoListComponent implements OnInit {
     delete this.uploadProgress[photo.id];
   }
 
+  prepareOrder() {
+    this.store.dispatch(new PrepareOrder(Array.from(this.selected)));
+  }
+
   pause($event: Event, photo: Photo) {
     event.stopPropagation();
-    console.log(photo.id, this.uploadTasks[photo.id]);
 
     this.uploadTasks[photo.id].pause();
   }
