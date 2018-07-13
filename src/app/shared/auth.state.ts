@@ -30,6 +30,7 @@ import {
   UpdateProfileFailed,
 } from './auth.actions';
 import { AuthStateModel, User as UserInfo } from './auth.model';
+import { UserCredential } from '@firebase/auth-types';
 
 @State<AuthStateModel>({
   name: 'auth',
@@ -117,8 +118,8 @@ export class AuthState implements NgxsOnInit {
   @Action(LoginWithEmailAndPassword)
   loginWithEmailAndPassword(ctx: StateContext<AuthStateModel>, action: LoginWithEmailAndPassword) {
     return this.afAuth.auth.signInWithEmailAndPassword(action.email, action.password).then(
-      (user: UserInfo) => {
-        ctx.dispatch(new LoginSuccess(user));
+      (user: UserCredential) => {
+        ctx.dispatch(new LoginSuccess(user.user));
       })
       .catch(error => {
         ctx.dispatch(new LoginFailed(error));

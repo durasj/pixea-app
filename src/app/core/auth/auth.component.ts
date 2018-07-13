@@ -1,18 +1,19 @@
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { auth } from 'firebase/app';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { User } from 'firebase/app';
-import * as md5 from 'md5';
+import md5 from 'md5';
 import { Store, Actions, ofActionDispatched, Select } from '@ngxs/store';
 import { Navigate } from '@ngxs/router-plugin';
 import { Observable } from 'rxjs/Observable';
 
-import EmailAuthProvider = auth.EmailAuthProvider;
-import GoogleAuthProvider = auth.GoogleAuthProvider;
-import FacebookAuthProvider = auth.FacebookAuthProvider;
+import EmailAuthProvider = firebase.auth.EmailAuthProvider;
+import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
+import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
 import {
   LoginWithGoogle,
   LoginWithFacebook,
