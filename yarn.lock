@@ -147,6 +147,10 @@
   dependencies:
     tslib "^1.9.0"
 
+"@angular/fire@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@angular/fire/-/fire-5.0.2.tgz#3ca9c09aee924e129059c4bf8780aa4c99ebb631"
+
 "@angular/forms@^6.0.5":
   version "6.0.5"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-6.0.5.tgz#d3ec7886d8b61a97b2c0b7501b304b449a2dcae6"
@@ -620,9 +624,11 @@ amqplib@^0.5.2:
     readable-stream "1.x >=1.1.9"
     safe-buffer "^5.0.1"
 
-angularfire2@^5.0.0-rc.11:
-  version "5.0.0-rc.11"
-  resolved "https://registry.yarnpkg.com/angularfire2/-/angularfire2-5.0.0-rc.11.tgz#697c43bf8e74fe5b27afa436e35dad9bae54a744"
+angularfire2@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/angularfire2/-/angularfire2-5.0.2.tgz#7208bb07162a43334114ed9cabade3961b366160"
+  dependencies:
+    "@angular/fire" "5.0.2"
 
 ansi-html@0.0.7:
   version "0.0.7"
